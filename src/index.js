@@ -2,63 +2,47 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 
-
-class AlgoVisual extends React.Component {
-  constructor(props) {
+class LinearSearch extends React.Component {
+  constructor(props){
     super(props);
-    this.value = this.props.value;
-    this.testVarible= "this is a test";
+    this.state = {
+      value: "",
+    }
   }
-    // let value = {props.value};
+
+  onValueChange = event =>{
+    this.setState({ value: event.target.value });
+  }
 
   render(){
+    let value = this.state.value.split(" ");
+
+    const spliiter = value.map((step, i) =>{
+      return(
+        <li key={i} className="li-box">
+          {step}
+        </li>
+      );
+    });
+
     return(
       <div>
-        {this.props.value}
-        qweqweqweqw
+        <form className="my-form">
+          <label htmlFor="number">Input Number: </label>
+          <input
+            type="text"
+            name="number"
+            defaultValue={this.state.value}
+            onChange={this.onValueChange}
+          />
+        </form>
+        <div>
+          <ul className="value-table">{spliiter}</ul>
+        </div>
       </div>
-      
     );
   }
 }
-
-class LinearSearch extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {value: ''};
-
-    this.handleChange = this.handleChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
-
-  handleChange(event) {
-    this.setState({value: event.target.value});
-  }
-
-  handleSubmit(event) {
-    event.preventDefault();
-
-    return (
-      <AlgoVisual
-        value = {this.state.value}
-        
-      />
-    );
-  }
-
-  render() {
-    return (
-      <form onSubmit={this.handleSubmit}>
-        <label>
-          Name:
-          <input type="text" value={this.state.value} onChange={this.handleChange} />
-        </label>
-        <input type="submit" value="Submit" />
-      </form>
-    );
-  }
-}
-
 // ========================================
 
 ReactDOM.render(
