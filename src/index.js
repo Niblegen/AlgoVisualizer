@@ -6,39 +6,49 @@ class LinearSearch extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      value: "",
-    }
+      userInput: "",
+      values: [{
+        value: Array(6).fill(null)
+      }],
+    };
   }
 
   onValueChange = event =>{
-    this.setState({ value: event.target.value });
+    this.setState({ 
+      userInput: event.target.value 
+    });
   }
 
   render(){
-    let value = this.state.value.split(" ");
+    let values = this.state.values[0];
+    let value = this.state.userInput.split(" ");
 
-    const spliiter = value.map((step, i) =>{
+    values.value.splice(0, value.length);
+    values.value = value.concat(values.value)
+
+    const spliiter = values.value.map((step, i) =>{
       return(
         <li key={i} className="li-box">
           {step}
         </li>
       );
-    });
+    })
 
     return(
       <div>
         <form className="my-form">
-          <label htmlFor="number">Input Number: </label>
+          <label htmlFor="qqq">Input Number: </label>
           <input
             type="text"
             name="number"
-            defaultValue={this.state.value}
+            defaultValue={this.state.userInput}
             onChange={this.onValueChange}
           />
         </form>
         <div>
           <ul className="value-table">{spliiter}</ul>
         </div>
+        
       </div>
     );
   }
